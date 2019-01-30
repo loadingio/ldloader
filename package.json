@@ -1,0 +1,22 @@
+{
+  "author": "Kirby Wu",
+  "name": "ldLoader",
+  "license": "MIT",
+  "description": "loader manipulation library",
+  "version": "0.0.1",
+  "homepage": "https://github.com/loadingio/ldLoader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loadingio/ldLoader"
+  },
+  "engines": {
+    "node": ">=0.12.6",
+    "npm": ">=1.2.2"
+  },
+  "devDependencies": {
+    "LiveScript": ">=1.2.0",
+    "stylus": "^0.54.5",
+    "uglify-js": "=3.2.0",
+    "uglifycss": "0.0.29"
+  }
+}

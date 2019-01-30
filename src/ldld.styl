@@ -1,0 +1,30 @@
+.ldld
+  visibility: hidden
+  opacity: 0
+  transition: all 0.3s ease-in-out
+
+@keyframes ldld-default
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
+
+.ldld.default
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(50% 50%)
+  z-index: 100
+  width: 32px
+  height: 32px
+  &:before
+    content: " "
+    display: block
+    width: 100%
+    height: 100%
+    background: rgba(0,0,0,.5)
+    animation: ldld-default 0.5s ease-in-out infinite
+
+.ldld.active
+  visibility: visible
+  opacity: 1
