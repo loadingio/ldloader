@@ -45,18 +45,23 @@ var slice$ = [].slice;
       return this.toggle(false, delay);
     },
     render: function(){
-      var runid, _, this$ = this;
-      if (!this.running || !this.opt.ctrl || !this.opt.ctrl.step) {
+      var runid, _, ret, this$ = this;
+      if (!(this.running && this.opt.ctrl && this.opt.ctrl.step)) {
         return this.runid = -1;
       }
       this.runid = runid = Math.random();
       _ = function(t){
         if (this$.runid === runid) {
-          partialize$.apply(this$, [requestAnimationFrame, [void 8], [0]]);
+          requestAnimationFrame(function(it){
+            return _(it);
+          });
         }
+        partialize$.apply(this$, [requestAnimationFrame, [void 8], [0]]);
         return this$.opt.ctrl.step.call(this$.root, t);
       };
-      return partialize$.apply(this, [requestAnimationFrame, [void 8], [0]]);
+      return ret = requestAnimationFrame(function(it){
+        return _(it);
+      });
     },
     toggle: function(v, delay){
       var d, running, z, ref$, idx, this$ = this;

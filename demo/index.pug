@@ -1,11 +1,28 @@
 doctype html
 html
   head
-    link(rel="stylesheet",type="text/css",href="dist/ldcv.css")
-    script(src="dist/ldcv.js")
+    link(rel="stylesheet",type="text/css",href="assets/ldcv.min.css")
+    link(rel="stylesheet",type="text/css",href="assets/loading-btn.css")
+    link(rel="stylesheet",type="text/css",href="assets/loading.css")
+    link(rel="stylesheet",type="text/css",href="ldld.css")
+    link(rel="stylesheet",type="text/css",href="index.css")
+    script(src="assets/ldcv.min.js")
+    script(src="ldld.js")
   body
-    h2 ldCover Demonstration
-    .btn(onclick="show()") show
-    .ldcv: .base: .inner
-      h3 Sample Popup
+    h2 ldLoader Demonstration
+    .btn(onclick="show('full')") toggle full
+    .btn(onclick="show('default')") toggle default
+    .btn(onclick="show('btn')") toggle btn
+    .btn(onclick="show('ctrl')") toggle ctrl
+    hr
+
+    .test.ldld.full
+    .test.btn.ld-ext-right
+      span Load
+      .ld.ld-ball.ld-bounce
+    .btn
+      span Hi
+      .test.ctrl
+    .btn.btn-test
+      .test.ldld.default
     script(src="index.js")
