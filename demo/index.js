@@ -11,6 +11,9 @@ ldld.ctrl = new ldLoader({
   ctrl: {
     step: function(t){
       return this.innerText = Math.round(t / 100) / 10 + "s passed.";
+    },
+    done: function(t){
+      return this.innerText = "Finished.";
     }
   }
 });

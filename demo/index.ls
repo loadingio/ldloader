@@ -3,6 +3,7 @@ ldld = {}
   ldld[it] = new ldLoader root: ".test.#it"
 ldld.ctrl = new ldLoader root: ".test.ctrl", ctrl: do
   step: (t) -> @innerText = "#{Math.round(t/100)/10}s passed."
+  done: (t) -> @innerText = "Finished."
 
 show = (name) -> ldld[name]on!; ldld[name]off 2000
 

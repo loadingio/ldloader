@@ -26,6 +26,7 @@ Configuration:
    - with auto-z, ldLoader keeps track of all loaders' z-index and always use larger z-index for newly toggled loaders. base-z is then used as a base value for all auto-z loaders.
  * ctrl: custom animation control unit. should at least contains a member function "step(t)".
    - step(t): will be invoked repeatedly by requestAnimationFrame during loading period. context (aka this) will be root.
+ * atomic: default false. when atomic is false, you will need N ldLoader.off() call to dismiss ldLoader if there was already N ldLoader.on() call.
 
 Methods:
  * on(delay): toggle loader on. (if delay is provided, do it after delay(ms). )

@@ -1,6 +1,6 @@
 (->
   ldLoader = (opt={}) ->
-    @opt = {active-class: \running, base-z: 10000, auto-z: true, class-name: ''} <<< opt
+    @opt = {active-class: \running, base-z: 10000, auto-z: true, class-name: '', atomic: false} <<< opt
     <[root container]>.map (n) ~>
       if opt[n] => @[n] = if typeof(opt[n]) == \string => document.querySelector(opt[n]) else opt[n]
     if !@container => @container = if @root => @root.parentNode else document.body
@@ -14,20 +14,22 @@
 
   ldLoader.prototype = Object.create(Object.prototype) <<< do
     on: (delay=0) -> @toggle true, delay
-    off: (delay=0) -> @toggle false, delay
+    off: (delay=0, force = false) -> @toggle false, delay, force
     render: ->
-      if !(@running and @opt.ctrl and @opt.ctrl.step) => return @runid = -1
-      @runid = runid = Math.random!
+      if !(@running and @opt.ctrl and @opt.ctrl.step) => return @render.runid = -1
+      @render.runid = runid = Math.random!
+      @render.start = 0
       _ = (t) ~>
-        if @runid == runid => requestAnimationFrame -> _ it
-        requestAnimationFrame _
-        @opt.ctrl.step.call @root, t
+        if !@render.start => @render.start = t
+        @opt.ctrl.step.call @root, (t - @render.start)
+        if @render.runid == runid => requestAnimationFrame -> _ it
+        else if @opt.ctrl.done => @opt.ctrl.done.call @root, (t - @render.start)
       ret = requestAnimationFrame -> _ it
-    toggle: (v,delay=0) ->
+    toggle: (v,delay=0, force = false) ->
       if delay => return setTimeout (~> @toggle v), delay
       d = (if !(v?) => (if @root.classList.contains @opt.active-class => -1 else 1) else if v => 1 else -1)
       @count += d
-      if @count >= 2 or (@count == 1 and d < 0) => return
+      if !force and !@opt.atomic and ( @count >= 2 or (@count == 1 and d < 0)) => return
       @root.classList[if !(v?) => \toggle else if v => \add else \remove](@opt.active-class)
       @running = running = @root.classList.contains(@opt.active-class)
       if !@opt.auto-z => return
