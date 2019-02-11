@@ -52,6 +52,9 @@
       }
       this.render.runid = runid = Math.random();
       this.render.start = 0;
+      if (this.opt.ctrl.init) {
+        this.opt.ctrl.init.call(this.root);
+      }
       _ = function(t){
         if (!this$.render.start) {
           this$.render.start = t;
@@ -70,43 +73,57 @@
       });
     },
     toggle: function(v, delay, force){
-      var d, running, z, ref$, idx, this$ = this;
+      var d, this$ = this;
       delay == null && (delay = 0);
       force == null && (force = false);
-      if (delay) {
-        return setTimeout(function(){
-          return this$.toggle(v);
-        }, delay);
-      }
       d = !(v != null)
         ? this.root.classList.contains(this.opt.activeClass) ? -1 : 1
         : v
           ? 1
           : -1;
-      this.count += d;
-      if (!force && !this.opt.atomic && (this.count >= 2 || (this.count === 1 && d < 0))) {
-        return;
+      if (delay) {
+        return new Promise(function(res, rej){
+          if (d) {
+            return this$.toggle(v).then(function(){
+              return setTimeout(function(){
+                return res();
+              }, delay);
+            });
+          } else {
+            return setTimeout(function(){
+              return this$.toggle(v).then(function(){
+                return res();
+              });
+            }, delay);
+          }
+        });
       }
-      this.root.classList[!(v != null)
-        ? 'toggle'
-        : v ? 'add' : 'remove'](this.opt.activeClass);
-      this.running = running = this.root.classList.contains(this.opt.activeClass);
-      if (!this.opt.autoZ) {
-        return;
-      }
-      if (running) {
-        this.root.style.zIndex = this.z = z = ((ref$ = ldLoader.zstack)[ref$.length - 1] || 0) + this.opt.baseZ;
-        ldLoader.zstack.push(z);
-      } else {
-        if ((idx = ldLoader.zstack.indexOf(this.z)) < 0) {
-          return;
+      return new Promise(function(res, rej){
+        var running, z, ref$, idx;
+        this$.count += d;
+        if (!force && !this$.opt.atomic && (this$.count >= 2 || (this$.count === 1 && d < 0))) {
+          return res();
         }
-        this.root.style.zIndex = "";
-        ldLoader.zstack.splice(idx, 1);
-      }
-      if (this.opt.ctrl) {
-        return this.render();
-      }
+        this$.root.classList[d > 0 ? 'add' : 'remove'](this$.opt.activeClass);
+        this$.running = running = this$.root.classList.contains(this$.opt.activeClass);
+        if (!this$.opt.autoZ) {
+          return res();
+        }
+        if (running) {
+          this$.root.style.zIndex = this$.z = z = ((ref$ = ldLoader.zstack)[ref$.length - 1] || 0) + this$.opt.baseZ;
+          ldLoader.zstack.push(z);
+        } else {
+          if ((idx = ldLoader.zstack.indexOf(this$.z)) < 0) {
+            return res();
+          }
+          this$.root.style.zIndex = "";
+          ldLoader.zstack.splice(idx, 1);
+        }
+        if (this$.opt.ctrl) {
+          this$.render();
+        }
+        return res();
+      });
     }
   });
   import$(ldLoader, {

@@ -29,10 +29,10 @@ Configuration:
  * atomic: default false. when atomic is false, you will need N ldLoader.off() call to dismiss ldLoader if there was already N ldLoader.on() call.
 
 Methods:
- * on(delay): toggle loader on. (if delay is provided, do it after delay(ms). )
- * off(delay): toggle loader off. (if delay is provided, do it after delay(ms). )
- * toggle(state,delay): toggle loader based on state(true/false). toggle according to current state if state is omitted. ( if delay is provided, do it after delay(ms). )
- * on(event, cb): listen to events, including:
+ * on(delay): toggle loader on. return promise. (if delay is provided, on then resolve after delay(ms). )
+ * off(delay): toggle loader off. (if delay is provided, resolve after delay(ms), then off. )
+ * toggle(state,delay): toggle loader based on state(true/false). toggle according to current state if state is omitted. return promise ( delay behavior according to whether it's on or off )
+ * on(event, cb): listen to events, including: ( TBD? conflict with on(delay) )
    - toggle.on
    - toggle.off
 

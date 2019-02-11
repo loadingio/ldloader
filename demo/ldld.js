@@ -52,6 +52,9 @@
       }
       this.render.runid = runid = Math.random();
       this.render.start = 0;
+      if (this.opt.ctrl.init) {
+        this.opt.ctrl.init.call(this.root);
+      }
       _ = function(t){
         if (!this$.render.start) {
           this$.render.start = t;
