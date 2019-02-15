@@ -9,7 +9,7 @@
       baseZ: 10000,
       autoZ: true,
       className: '',
-      atomic: false
+      atomic: true
     }, opt);
     ['root', 'container'].map(function(n){
       if (opt[n]) {

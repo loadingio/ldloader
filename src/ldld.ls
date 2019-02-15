@@ -1,6 +1,6 @@
 (->
   ldLoader = (opt={}) ->
-    @opt = {active-class: \running, base-z: 10000, auto-z: true, class-name: '', atomic: false} <<< opt
+    @opt = {active-class: \running, base-z: 10000, auto-z: true, class-name: '', atomic: true} <<< opt
     <[root container]>.map (n) ~>
       if opt[n] => @[n] = if typeof(opt[n]) == \string => document.querySelector(opt[n]) else opt[n]
     if !@container => @container = if @root => @root.parentNode else document.body
