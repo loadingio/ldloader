@@ -83,7 +83,7 @@
           : -1;
       if (delay) {
         return new Promise(function(res, rej){
-          if (d) {
+          if (d > 0) {
             return this$.toggle(v).then(function(){
               return setTimeout(function(){
                 return res();

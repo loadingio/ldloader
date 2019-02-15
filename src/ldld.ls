@@ -29,7 +29,7 @@
     toggle: (v, delay=0, force = false) ->
       d = (if !(v?) => (if @root.classList.contains @opt.active-class => -1 else 1) else if v => 1 else -1)
       if delay => return new Promise (res, rej) ~>
-        if d => @toggle(v)then ~> setTimeout (~> res!), delay # if is on : resolve after on
+        if d > 0 => @toggle(v)then ~> setTimeout (~> res!), delay # if is on : resolve after on
         else => setTimeout (~> @toggle(v)then ~> res!), delay # if is off: off after resolve
       new Promise (res, rej) ~>
         @count += d
