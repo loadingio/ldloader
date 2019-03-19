@@ -17,6 +17,9 @@ ldld.ctrl = new ldLoader({
     }
   }
 });
+ldld.all = new ldLoader({
+  root: Array.from(document.querySelectorAll(".all"))
+});
 show = function(name){
   ldld[name].on();
   return ldld[name].off(2000);

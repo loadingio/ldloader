@@ -9,28 +9,44 @@
       baseZ: 10000,
       autoZ: true,
       className: '',
-      atomic: false
+      atomic: true
     }, opt);
     ['root', 'container'].map(function(n){
       if (opt[n]) {
-        return this$[n] = typeof opt[n] === 'string'
-          ? document.querySelector(opt[n])
-          : opt[n];
+        return this$[n] = (Array.isArray(opt[n])
+          ? opt[n]
+          : [opt[n]]).map(function(it){
+          if (typeof it === 'string') {
+            return document.querySelector(it);
+          } else {
+            return it;
+          }
+        });
       }
     });
     if (!this.container) {
       this.container = this.root
-        ? this.root.parentNode
-        : document.body;
+        ? this.root.map(function(it){
+          return it.parentNode;
+        })
+        : [document.body];
     }
     if (!this.root) {
-      this.root = document.createElement("div");
-      this.container.appendChild(this.root);
+      this.root = this.container.map(function(it){
+        var node;
+        node = document.createElement("div");
+        it.appendChild(node);
+        return node;
+      });
     }
-    this.root.classList.add.apply(this.root.classList, (this.opt.className || '').split(' ').filter(function(it){
-      return it;
-    }));
-    this.root.classList.remove(opt.activeClass);
+    this.root.map(function(it){
+      return it.classList.add.apply(it.classList, (this$.opt.className || '').split(' ').filter(function(it){
+        return it;
+      }));
+    });
+    this.root.map(function(it){
+      return it.classList.remove(opt.activeClass);
+    });
     this.running = false;
     this.count = 0;
     return this;
@@ -53,19 +69,25 @@
       this.render.runid = runid = Math.random();
       this.render.start = 0;
       if (this.opt.ctrl.init) {
-        this.opt.ctrl.init.call(this.root);
+        this.root.map(function(it){
+          return this$.opt.ctrl.init.call(it);
+        });
       }
       _ = function(t){
         if (!this$.render.start) {
           this$.render.start = t;
         }
-        this$.opt.ctrl.step.call(this$.root, t - this$.render.start);
+        this$.root.map(function(it){
+          return this$.opt.ctrl.step.call(it, t - this$.render.start);
+        });
         if (this$.render.runid === runid) {
           return requestAnimationFrame(function(it){
             return _(it);
           });
         } else if (this$.opt.ctrl.done) {
-          return this$.opt.ctrl.done.call(this$.root, t - this$.render.start);
+          return this$.root.map(function(it){
+            return this$.opt.ctrl.done.call(it, t - this$.render.start);
+          });
         }
       };
       return ret = requestAnimationFrame(function(it){
@@ -73,43 +95,64 @@
       });
     },
     toggle: function(v, delay, force){
-      var d, running, z, ref$, idx, this$ = this;
+      var d, this$ = this;
       delay == null && (delay = 0);
       force == null && (force = false);
-      if (delay) {
-        return setTimeout(function(){
-          return this$.toggle(v);
-        }, delay);
-      }
       d = !(v != null)
-        ? this.root.classList.contains(this.opt.activeClass) ? -1 : 1
+        ? this.root[0].classList.contains(this.opt.activeClass) ? -1 : 1
         : v
           ? 1
           : -1;
-      this.count += d;
-      if (!force && !this.opt.atomic && (this.count >= 2 || (this.count === 1 && d < 0))) {
-        return;
+      if (delay) {
+        return new Promise(function(res, rej){
+          if (d > 0) {
+            return this$.toggle(v).then(function(){
+              return setTimeout(function(){
+                return res();
+              }, delay);
+            });
+          } else {
+            return setTimeout(function(){
+              return this$.toggle(v).then(function(){
+                return res();
+              });
+            }, delay);
+          }
+        });
       }
-      this.root.classList[!(v != null)
-        ? 'toggle'
-        : v ? 'add' : 'remove'](this.opt.activeClass);
-      this.running = running = this.root.classList.contains(this.opt.activeClass);
-      if (!this.opt.autoZ) {
-        return;
-      }
-      if (running) {
-        this.root.style.zIndex = this.z = z = ((ref$ = ldLoader.zstack)[ref$.length - 1] || 0) + this.opt.baseZ;
-        ldLoader.zstack.push(z);
-      } else {
-        if ((idx = ldLoader.zstack.indexOf(this.z)) < 0) {
-          return;
+      return new Promise(function(res, rej){
+        var running, z, ref$, idx;
+        this$.count += d;
+        if (!force && !this$.opt.atomic && (this$.count >= 2 || (this$.count === 1 && d < 0))) {
+          return res();
         }
-        this.root.style.zIndex = "";
-        ldLoader.zstack.splice(idx, 1);
-      }
-      if (this.opt.ctrl) {
-        return this.render();
-      }
+        this$.root.map(function(it){
+          return it.classList[d > 0 ? 'add' : 'remove'](this$.opt.activeClass);
+        });
+        this$.running = running = this$.root[0].classList.contains(this$.opt.activeClass);
+        if (!this$.opt.autoZ) {
+          return res();
+        }
+        if (running) {
+          this$.z = z = ((ref$ = ldLoader.zstack)[ref$.length - 1] || 0) + this$.opt.baseZ;
+          this$.root.map(function(it){
+            return it.style.zIndex = z;
+          });
+          ldLoader.zstack.push(z);
+        } else {
+          if ((idx = ldLoader.zstack.indexOf(this$.z)) < 0) {
+            return res();
+          }
+          this$.root.map(function(it){
+            return it.style.zIndex = "";
+          });
+          ldLoader.zstack.splice(idx, 1);
+        }
+        if (this$.opt.ctrl) {
+          this$.render();
+        }
+        return res();
+      });
     }
   });
   import$(ldLoader, {

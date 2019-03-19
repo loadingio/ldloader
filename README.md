@@ -17,6 +17,7 @@ Configuration:
    - will be document.body if both root and container is omitted.
  * root: element for your loader. default null.
    - ldLoader will create one automatically if omitted, and append it under container.
+   - you can specify an array of root to controls all these loaders with one instance of ldLoader.
  * class-name: additional class over root. default '' and is optional.
    - you can also add classes directly onto the root element you provided.
  * active-class: class added to root when loader is toggled on. default 'running'.
