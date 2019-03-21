@@ -16,11 +16,12 @@
         return this$[n] = (Array.isArray(opt[n])
           ? opt[n]
           : [opt[n]]).map(function(it){
-          if (typeof it === 'string') {
-            return document.querySelector(it);
-          } else {
-            return it;
+          var ret;
+          ret = typeof it === 'string' ? document.querySelector(it) : it;
+          if (!ret) {
+            console.warn("[ldLoader] warning: no node found for " + it);
           }
+          return ret;
         });
       }
     });
@@ -40,12 +41,13 @@
       });
     }
     this.root.map(function(it){
-      return it.classList.add.apply(it.classList, (this$.opt.className || '').split(' ').filter(function(it){
+      it.classList.add.apply(it.classList, (this$.opt.className || '').split(' ').filter(function(it){
         return it;
       }));
-    });
-    this.root.map(function(it){
-      return it.classList.remove(opt.activeClass);
+      it.classList.remove(opt.activeClass);
+      if (opt.inactiveClass) {
+        return it.classList.add(opt.inactiveClass);
+      }
     });
     this.running = false;
     this.count = 0;
@@ -60,6 +62,14 @@
       delay == null && (delay = 0);
       force == null && (force = false);
       return this.toggle(false, delay, force);
+    },
+    flash: function(dur, delay){
+      var this$ = this;
+      dur == null && (dur = 1000);
+      delay == null && (delay = 0);
+      return this.toggle(true, delay).then(function(){
+        return this$.toggle(false, dur + delay);
+      });
     },
     render: function(){
       var runid, _, ret, this$ = this;
@@ -127,7 +137,8 @@
           return res();
         }
         this$.root.map(function(it){
-          return it.classList[d > 0 ? 'add' : 'remove'](this$.opt.activeClass);
+          it.classList[d > 0 ? 'add' : 'remove'](this$.opt.activeClass);
+          return it.classList[d < 0 ? 'add' : 'remove'](this$.opt.inactiveClass);
         });
         this$.running = running = this$.root[0].classList.contains(this$.opt.activeClass);
         if (!this$.opt.autoZ) {

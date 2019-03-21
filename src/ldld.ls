@@ -3,20 +3,25 @@
     @opt = {active-class: \running, base-z: 10000, auto-z: true, class-name: '', atomic: true} <<< opt
     <[root container]>.map (n) ~> if opt[n] =>
       @[n] = (if Array.isArray(opt[n]) => opt[n] else [opt[n]]).map ->
-        if typeof(it) == \string => document.querySelector(it) else it
+        ret = if typeof(it) == \string => document.querySelector(it) else it
+        if !ret => console.warn "[ldLoader] warning: no node found for #it"
+        ret
     if !@container => @container = if @root => @root.map(-> it.parentNode) else [document.body]
     if !@root => @root = @container.map ->
         node = document.createElement("div")
         it.appendChild node
         return node
-    @root.map ~> it.classList.add.apply it.classList, (@opt.class-name or '').split(' ').filter(->it)
-    @root.map ~> it.classList.remove opt.active-class
+    @root.map ~>
+      it.classList.add.apply it.classList, (@opt.class-name or '').split(' ').filter(->it)
+      it.classList.remove opt.active-class
+      if opt.inactive-class => it.classList.add opt.inactive-class
     @ <<< running: false, count: 0
     @
 
   ldLoader.prototype = Object.create(Object.prototype) <<< do
     on: (delay=0) -> @toggle true, delay
     off: (delay=0, force = false) -> @toggle false, delay, force
+    flash: (dur=1000, delay=0) -> @toggle(true, delay).then ~> @toggle false, dur + delay
     render: ->
       if !(@running and @opt.ctrl and @opt.ctrl.step) => return @render.runid = -1
       @render.runid = runid = Math.random!
@@ -36,7 +41,9 @@
       new Promise (res, rej) ~>
         @count += d
         if !force and !@opt.atomic and ( @count >= 2 or (@count == 1 and d < 0)) => return res!
-        @root.map ~> it.classList[if d > 0 => \add else \remove](@opt.active-class)
+        @root.map ~>
+          it.classList[if d > 0 => \add else \remove](@opt.active-class)
+          it.classList[if d < 0 => \add else \remove](@opt.inactive-class)
         @running = running = @root.0.classList.contains(@opt.active-class)
         if !@opt.auto-z => return res!
         if running =>
