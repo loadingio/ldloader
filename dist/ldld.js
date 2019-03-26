@@ -138,7 +138,9 @@
         }
         this$.root.map(function(it){
           it.classList[d > 0 ? 'add' : 'remove'](this$.opt.activeClass);
-          return it.classList[d < 0 ? 'add' : 'remove'](this$.opt.inactiveClass);
+          if (this$.opt.inactiveClass) {
+            return it.classList[d < 0 ? 'add' : 'remove'](this$.opt.inactiveClass);
+          }
         });
         this$.running = running = this$.root[0].classList.contains(this$.opt.activeClass);
         if (!this$.opt.autoZ) {
