@@ -12,7 +12,8 @@
 }
 .ldld.default:before,
 .ldld.full:before,
-.ldld.ldbtn:before {
+.ldld.ldbtn:before,
+.ldld.bare:before {
   content: " ";
   display: block;
   background: none;

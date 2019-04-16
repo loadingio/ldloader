@@ -8,20 +8,24 @@ handy library to manipulate loader's state.
 create an object for each loader you want to use:
 
 ````
-    var ldld = new ldLoader({ ... });
+    var ldld = new ldLoader(config);
 ````
 
-Configuration:
+
+config includes following options:
+
+ * root: element for your loader. default null
+   - could be css selector, element, or array of css selectors/elements.
+   - ldLoader will create one automatically if omitted, and append it under container.
+   - if root is an array, ldLoader instance will work on every element in the array.
  * container: where root should be put in. default null.
    - will be root.parentNode if omitted.
    - will be document.body if both root and container is omitted.
- * root: element for your loader. default null.
-   - ldLoader will create one automatically if omitted, and append it under container.
-   - you can specify an array of root to controls all these loaders with one instance of ldLoader.
  * class-name: additional class over root. default '' and is optional.
    - you can also add classes directly onto the root element you provided.
  * active-class: class added to root when loader is toggled on. default 'running'.
    - useful when working with different css libraries.
+ * inactive-class: class added to root when loader is toggled off. default is null.
  * auto-z: update root's z-index automatically. default true.
  * base-z: the minimal z-index of root. default 10000.
    - with auto-z, ldLoader keeps track of all loaders' z-index and always use larger z-index for newly toggled loaders. base-z is then used as a base value for all auto-z loaders.
@@ -39,12 +43,13 @@ Methods:
 
 ## Styling and Structure
 
-There is no constraint about how ldLoader's DOM structure should be. Basically it contains an element for loader, and the element's parent in which the loader is shown. You controls all the animation and effects based on ```active-class``` toggled by ldLoader.
+There is no constraint about how ldLoader's DOM structure should be. Basically it contains an element for loader, and the element's parent in which the loader is shown. You control all the animation and effects based on ```active-class``` toggled by ldLoader.
 
 For convenience, ldLoader is shipped with some builtin css for simple usage:
 
- * .ldld.default - rotating square centered in it's container. container should have style position: relatve/absolute/fixed.
- * .ldld.full - dimed full screen blocking loader, with rotating square in the middle.
+ * .ldld.bare - rotating double ring, placed at where it should be.
+ * .ldld.default - rotating double ring centered in it's container. container should have style position: relatve/absolute/fixed.
+ * .ldld.full - dimed full screen blocking loader, with rotating double ring in the middle.
 
 You can also use ldLoader along with ```loading-btn``` and ```loading.css```:
 
