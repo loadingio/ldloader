@@ -7,8 +7,11 @@
   visibility: visible;
   opacity: 1;
 }
-.ldld {
+.ldld.dark {
   color: rgba(0,0,0,0.5);
+}
+.ldld.light {
+  color: rgba(255,255,255,0.5);
 }
 .ldld.default:before,
 .ldld.full:before,
@@ -39,6 +42,12 @@
 .ldld.ldbtn.sm {
   width: 16px;
   height: 16px;
+}
+.ldld.bare.em-1,
+.ldld.default.em-1,
+.ldld.ldbtn.em-1 {
+  width: 1em;
+  height: 1em;
 }
 /* default loader, for using with ldbtn */
 .ldld.ldbtn {

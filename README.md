@@ -50,6 +50,12 @@ For convenience, ldLoader is shipped with some builtin css for simple usage:
  * .ldld.bare - rotating double ring, placed at where it should be.
  * .ldld.default - rotating double ring centered in it's container. container should have style position: relatve/absolute/fixed.
  * .ldld.full - dimed full screen blocking loader, with rotating double ring in the middle.
+ * size modifier for .ldld.bare  and .ldld.default:
+   * .sm - 16 x 16
+   * .em-1 - 1em x 1em ( useful in button )
+ * color modifier:
+   * .ldld.light - rgba(255,255,255,.5)
+   * .ldld.dark - rgba(0,0,0,.5)
 
 You can also use ldLoader along with ```loading-btn``` and ```loading.css```:
 
