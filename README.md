@@ -53,7 +53,9 @@ For convenience, ldLoader is shipped with some builtin css for simple usage:
  * size modifier for .ldld.bare  and .ldld.default:
    * .sm - 16 x 16
    * .em-1 - 1em x 1em ( useful in button )
+   * .em-2 - 2em x 2em
  * color modifier:
+   * without color modifier, it will `currentColor` by default.
    * .ldld.light - rgba(255,255,255,.5)
    * .ldld.dark - rgba(0,0,0,.5)
 
