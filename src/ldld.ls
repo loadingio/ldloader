@@ -42,8 +42,8 @@
         @count += d
         if !force and !@opt.atomic and ( @count >= 2 or (@count == 1 and d < 0)) => return res!
         @root.map ~>
-          it.classList[if d > 0 => \add else \remove](@opt.active-class)
-          it.classList[if d < 0 => \add else \remove](@opt.inactive-class) if @opt.inactive-class
+          it.classList.toggle @opt.active-class, (d > 0)
+          if @opt.inactive-class => it.classList.toggle @opt.inactive-class, (d < 0)
         @running = running = @root.0.classList.contains(@opt.active-class)
         if !@opt.auto-z => return res!
         if running =>
