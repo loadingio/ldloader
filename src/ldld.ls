@@ -45,6 +45,7 @@
           it.classList.toggle @opt.active-class, (d > 0)
           if @opt.inactive-class => it.classList.toggle @opt.inactive-class, (d < 0)
         @running = running = @root.0.classList.contains(@opt.active-class)
+        if @opt.ctrl => @render!
         if !@opt.auto-z => return res!
         if running =>
           @z = z = (ldLoader.zstack[* - 1] or 0) + @opt.base-z
@@ -54,7 +55,6 @@
           if (idx = ldLoader.zstack.indexOf(@z)) < 0 => return res!
           @root.map ~> it.style.zIndex = ""
           ldLoader.zstack.splice(idx, 1)
-        if @opt.ctrl => @render!
         res!
 
   ldLoader <<< do

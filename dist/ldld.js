@@ -143,6 +143,9 @@
           }
         });
         this$.running = running = this$.root[0].classList.contains(this$.opt.activeClass);
+        if (this$.opt.ctrl) {
+          this$.render();
+        }
         if (!this$.opt.autoZ) {
           return res();
         }
@@ -160,9 +163,6 @@
             return it.style.zIndex = "";
           });
           ldLoader.zstack.splice(idx, 1);
-        }
-        if (this$.opt.ctrl) {
-          this$.render();
         }
         return res();
       });
