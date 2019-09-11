@@ -19,6 +19,7 @@
     @
 
   ldLoader.prototype = Object.create(Object.prototype) <<< do
+    is-on: -> return @running
     on: (delay=0) -> @toggle true, delay
     off: (delay=0, force = false) -> @toggle false, delay, force
     flash: (dur=1000, delay=0) -> @toggle(true, delay).then ~> @toggle false, dur + delay

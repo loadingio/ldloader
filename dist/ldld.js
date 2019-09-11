@@ -54,6 +54,9 @@
     return this;
   };
   ldLoader.prototype = import$(Object.create(Object.prototype), {
+    isOn: function(){
+      return this.running;
+    },
     on: function(delay){
       delay == null && (delay = 0);
       return this.toggle(true, delay);
