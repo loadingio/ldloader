@@ -36,6 +36,7 @@ config includes following options:
 Methods:
  * on(delay): toggle loader on. return promise. (if delay is provided, on then resolve after delay(ms). )
  * off(delay): toggle loader off. (if delay is provided, resolve after delay(ms), then off. )
+ * is-on: return true if loader is running, else false.
  * toggle(state,delay): toggle loader based on state(true/false). toggle according to current state if state is omitted. return promise ( delay behavior according to whether it's on or off )
  * on(event, cb): listen to events, including: ( TBD? conflict with on(delay) )
    - toggle.on
