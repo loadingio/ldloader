@@ -6,8 +6,8 @@
     opt == null && (opt = {});
     this.opt = import$({
       activeClass: 'running',
-      baseZ: 10000,
-      autoZ: true,
+      baseZ: 4000,
+      autoZ: false,
       className: '',
       atomic: true
     }, opt);

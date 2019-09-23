@@ -1,6 +1,6 @@
 (->
   ldLoader = (opt={}) ->
-    @opt = {active-class: \running, base-z: 10000, auto-z: true, class-name: '', atomic: true} <<< opt
+    @opt = {active-class: \running, base-z: 4000, auto-z: false, class-name: '', atomic: true} <<< opt
     <[root container]>.map (n) ~> if opt[n] =>
       @[n] = (if Array.isArray(opt[n]) => opt[n] else [opt[n]]).map ->
         ret = if typeof(it) == \string => document.querySelector(it) else it
