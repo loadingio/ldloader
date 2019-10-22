@@ -1,6 +1,6 @@
 # ldLoader
 
-handy library to manipulate loader's state.
+handy library to manipulate loader's state. for more information, please check [ldLoader documentation](https://loading.io/lib/loader/).
 
 
 ## Usage
