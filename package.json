@@ -1,10 +1,10 @@
 {
-  "author": "Kirby Wu",
-  "name": "ldLoader",
+  "author": "zbryikt",
+  "name": "ldloader",
   "license": "MIT",
   "description": "loader manipulation library",
-  "version": "0.0.1",
-  "homepage": "https://github.com/loadingio/ldLoader",
+  "version": "1.0.0",
+  "homepage": "https://loading.io/lib/loader/",
   "repository": {
     "type": "git",
     "url": "https://github.com/loadingio/ldLoader"
