@@ -66,6 +66,12 @@
       force == null && (force = false);
       return this.toggle(false, delay, force);
     },
+    cancel: function(v){
+      clearTimeout(this.handle);
+      if (v != null) {
+        return this.toggle(v);
+      }
+    },
     flash: function(dur, delay){
       var this$ = this;
       dur == null && (dur = 1000);
@@ -116,21 +122,16 @@
         : v
           ? 1
           : -1;
+      if (this.handle) {
+        this.cancel();
+      }
       if (delay) {
         return new Promise(function(res, rej){
-          if (d > 0) {
+          return this$.handle = setTimeout(function(){
             return this$.toggle(v).then(function(){
-              return setTimeout(function(){
-                return res();
-              }, delay);
+              return res();
             });
-          } else {
-            return setTimeout(function(){
-              return this$.toggle(v).then(function(){
-                return res();
-              });
-            }, delay);
-          }
+          }, delay);
         });
       }
       return new Promise(function(res, rej){

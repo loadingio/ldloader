@@ -22,6 +22,8 @@
     is-on: -> return @running
     on: (delay=0) -> @toggle true, delay
     off: (delay=0, force = false) -> @toggle false, delay, force
+    # if v defined, force state to v.
+    cancel: (v) -> clearTimeout @handle; if v? => @toggle v
     flash: (dur=1000, delay=0) -> @toggle(true, delay).then ~> @toggle false, dur + delay
     render: ->
       if !(@running and @opt.ctrl and @opt.ctrl.step) => return @render.runid = -1
@@ -36,9 +38,15 @@
       ret = requestAnimationFrame -> _ it
     toggle: (v, delay=0, force = false) ->
       d = (if !(v?) => (if @root.0.classList.contains @opt.active-class => -1 else 1) else if v => 1 else -1)
+      if @handle => @cancel!
       if delay => return new Promise (res, rej) ~>
-        if d > 0 => @toggle(v)then ~> setTimeout (~> res!), delay # if is on : resolve after on
-        else => setTimeout (~> @toggle(v)then ~> res!), delay # if is off: off after resolve
+        # new approach - treat delay directly as a simple delay before action.
+        @handle = setTimeout (~> @toggle(v)then ~> res!), delay
+        # old approach
+        # if is on: resolve after on
+        #if d > 0 => @toggle(v)then ~> setTimeout (~> res!), delay
+        # if is off: off after resolve
+        #else => setTimeout (~> @toggle(v)then ~> res!), delay
       new Promise (res, rej) ~>
         @count += d
         if !force and !@opt.atomic and ( @count >= 2 or (@count == 1 and d < 0)) => return res!
