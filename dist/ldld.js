@@ -135,8 +135,8 @@
         });
       }
       return new Promise(function(res, rej){
-        var running, z, ref$, idx;
-        this$.count += d;
+        var ref$, running, z, idx;
+        this$.count = (ref$ = this$.count + d) > 0 ? ref$ : 0;
         if (!force && !this$.opt.atomic && (this$.count >= 2 || (this$.count === 1 && d < 0))) {
           return res();
         }

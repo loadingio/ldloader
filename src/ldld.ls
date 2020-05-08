@@ -48,7 +48,7 @@
         # if is off: off after resolve
         #else => setTimeout (~> @toggle(v)then ~> res!), delay
       new Promise (res, rej) ~>
-        @count += d
+        @count = (@count + d >? 0)
         if !force and !@opt.atomic and ( @count >= 2 or (@count == 1 and d < 0)) => return res!
         @root.map ~>
           it.classList.toggle @opt.active-class, (d > 0)
