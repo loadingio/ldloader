@@ -1,3 +1,8 @@
+# 1.1.1
+
+ - only release `dist` files
+
+
 # 1.1.0
 
  - use semantic delay
