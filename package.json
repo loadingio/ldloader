@@ -2,7 +2,7 @@
   "author": "zbryikt",
   "name": "ldloader",
   "license": "MIT",
-  "dist": [
+  "files": [
     "dist/**/*"
   ],
   "description": "loader manipulation library",
