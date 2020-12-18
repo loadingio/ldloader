@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+rm -rf dist
 mkdir -p dist
 echo "build src/ldld.ls -> dist/ldld.js ..."
 ./node_modules/.bin/lsc -cbp src/ldld.ls > dist/ldld.js
