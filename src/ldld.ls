@@ -57,17 +57,22 @@
         if @opt.ctrl => @render!
         if !@opt.auto-z => return res!
         if running =>
-          @z = z = (ldLoader.zstack[* - 1] or 0) + @opt.base-z
-          @root.map ~> it.style.zIndex = z
-          ldLoader.zstack.push z
+          if ldLoader.zmgr => @z = ldLoader.zmgr.add @opt.base-z
+          else
+            @z = (ldLoader.zstack[* - 1] or @opt.base-z) + 1
+            ldLoader.zstack.push z
+          @root.map ~> it.style.zIndex = @z
         else
-          if (idx = ldLoader.zstack.indexOf(@z)) < 0 => return res!
+          if ldLoader.zmgr => ldLoader.zmgr.remove @z
+          else
+            if (idx = ldLoader.zstack.indexOf(@z)) < 0 => return res!
+            ldLoader.zstack.splice(idx, 1)
           @root.map ~> it.style.zIndex = ""
-          ldLoader.zstack.splice(idx, 1)
         res!
 
   ldLoader <<< do
     zstack: []
+    set-zmgr: -> @zmgr = it
 
   window.ldLoader = ldLoader
 )!

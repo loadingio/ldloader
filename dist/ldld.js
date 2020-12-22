@@ -135,7 +135,7 @@
         });
       }
       return new Promise(function(res, rej){
-        var ref$, running, z, idx;
+        var ref$, running, idx;
         this$.count = (ref$ = this$.count + d) > 0 ? ref$ : 0;
         if (!force && !this$.opt.atomic && (this$.count >= 2 || (this$.count === 1 && d < 0))) {
           return res();
@@ -154,26 +154,37 @@
           return res();
         }
         if (running) {
-          this$.z = z = ((ref$ = ldLoader.zstack)[ref$.length - 1] || 0) + this$.opt.baseZ;
+          if (ldLoader.zmgr) {
+            this$.z = ldLoader.zmgr.add(this$.opt.baseZ);
+          } else {
+            this$.z = ((ref$ = ldLoader.zstack)[ref$.length - 1] || this$.opt.baseZ) + 1;
+            ldLoader.zstack.push(z);
+          }
           this$.root.map(function(it){
-            return it.style.zIndex = z;
+            return it.style.zIndex = this$.z;
           });
-          ldLoader.zstack.push(z);
         } else {
-          if ((idx = ldLoader.zstack.indexOf(this$.z)) < 0) {
-            return res();
+          if (ldLoader.zmgr) {
+            ldLoader.zmgr.remove(this$.z);
+          } else {
+            if ((idx = ldLoader.zstack.indexOf(this$.z)) < 0) {
+              return res();
+            }
+            ldLoader.zstack.splice(idx, 1);
           }
           this$.root.map(function(it){
             return it.style.zIndex = "";
           });
-          ldLoader.zstack.splice(idx, 1);
         }
         return res();
       });
     }
   });
   import$(ldLoader, {
-    zstack: []
+    zstack: [],
+    setZmgr: function(it){
+      return this.zmgr = it;
+    }
   });
   return window.ldLoader = ldLoader;
 })();

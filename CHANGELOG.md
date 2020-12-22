@@ -1,3 +1,9 @@
+# 1.2.0
+
+ - add `setZmgr` for managing z-index globally.
+ - fix bug: when `auto-z` is set to true, z value isn't calculated correctly.
+
+
 # 1.1.1
 
  - only release `dist` files

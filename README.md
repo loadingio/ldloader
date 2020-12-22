@@ -43,6 +43,17 @@ Methods:
    - toggle.on
    - toggle.off
 
+
+## Class Method
+
+ * setZmgr(zmgr): set a shared z-index manager. useful to manager widget z-index globally.
+   this manager should provide following methods:
+   - add(baseVal, size): return actual added value.
+     - baseVal: hint value for the z-index we'd like to use
+     - size: hint size about how large the object we added is
+   - remove(val): remove val ( returned by add ) from this manager.
+
+
 ## Styling and Structure
 
 There is no constraint about how ldLoader's DOM structure should be. Basically it contains an element for loader, and the element's parent in which the loader is shown. You control all the animation and effects based on ```active-class``` toggled by ldLoader.
