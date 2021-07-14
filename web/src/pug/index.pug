@@ -1,0 +1,37 @@
+doctype html
+include @/bootstrap.ldui/dist/index.pug
+html
+  head
+    +css("assets/lib/bootstrap/main/css/bootstrap.min.css")
+    +css("assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.css")
+    +css("/assets/lib/ldcover/main/ldcv.min.css")
+    +css("/assets/lib/ldbutton/main/ldbtn.css")
+    +css("/assets/lib/@loadingio/loading.css/main/loading.css")
+    +css("/assets/lib/ldloader/dev/ldld.css")
+    style(type="text/css"): include:stylus index.styl
+  body
+    .test.ldld.full.z-fixed
+    .w-1024.mx-auto.my-4.rwd
+      h2 ldLoader Demonstration
+      .btn.btn-outline-secondary.mr-2(onclick="show('full')") toggle full
+      .btn.btn-outline-secondary.mr-2(onclick="show('default')") toggle Floating Panel
+      .btn.btn-outline-secondary.mr-2(onclick="show('btn')") toggle btn
+      .btn.btn-outline-secondary.mr-2(onclick="show('ctrl')") toggle ctrl
+      .btn.btn-outline-secondary.mr-2(onclick="show('all')") toggle multiple
+      hr
+
+      .test.btn.btn-outline-secondary.ld-ext-right.mr-2
+        span Load
+        .ld.ld-ball.ld-bounce
+      .btn.btn-outline-secondary.mr-2: .d-flex.align-items-center
+        span Ctrl
+        .test.ctrl.ml-2
+      .btn.btn-test
+        .test.ldld.default
+      .btn.btn-outline-secondary.mr-2.all.ld-ext-right All 1 #[.ld.ld-ring.ld-spin]
+      .btn.btn-outline-secondary.mr-2.all.ld-ext-left All 2 #[.ld.ld-ring.ld-spin]
+      .btn.btn-outline-secondary.mr-2.all.ld-ext-top All 3 #[.ld.ld-ring.ld-spin]
+
+    +script("/assets/lib/ldcover/main/ldcv.min.js")
+    +script("/assets/lib/ldloader/dev/ldld.js")
+    script: include:lsc index.ls

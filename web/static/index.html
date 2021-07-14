@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/main/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.css"><link rel="stylesheet" type="text/css" href="/assets/lib/ldcover/main/ldcv.min.css"><link rel="stylesheet" type="text/css" href="/assets/lib/ldbutton/main/ldbtn.css"><link rel="stylesheet" type="text/css" href="/assets/lib/@loadingio/loading.css/main/loading.css"><link rel="stylesheet" type="text/css" href="/assets/lib/ldloader/dev/ldld.css"><style type="text/css">.btn-test {
+  width: 300px;
+  height: 300px;
+  background: #ccc;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.btn-test:hover {
+  background: #f00;
+}
+</style></head><body><div class="test ldld full z-fixed"></div><div class="w-1024 mx-auto my-4 rwd"><h2>ldLoader Demonstration</h2><div class="btn btn-outline-secondary mr-2" onclick="show('full')">toggle full</div><div class="btn btn-outline-secondary mr-2" onclick="show('default')">toggle Floating Panel</div><div class="btn btn-outline-secondary mr-2" onclick="show('btn')">toggle btn</div><div class="btn btn-outline-secondary mr-2" onclick="show('ctrl')">toggle ctrl</div><div class="btn btn-outline-secondary mr-2" onclick="show('all')">toggle multiple</div><hr><div class="test btn btn-outline-secondary ld-ext-right mr-2"><span>Load</span><div class="ld ld-ball ld-bounce"></div></div><div class="btn btn-outline-secondary mr-2"><div class="d-flex align-items-center"><span>Ctrl</span><div class="test ctrl ml-2"></div></div></div><div class="btn btn-test"><div class="test ldld default"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-right">All 1 <div class="ld ld-ring ld-spin"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-left">All 2 <div class="ld ld-ring ld-spin"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-top">All 3 <div class="ld ld-ring ld-spin"></div></div></div><script type="text/javascript" src="/assets/lib/ldcover/main/ldcv.min.js"></script><script type="text/javascript" src="/assets/lib/ldloader/dev/ldld.js"></script><script>var ldld, show, btnTest, f;
+ldld = {};
+['full', 'default', 'btn'].map(function(it){
+  return ldld[it] = new ldLoader({
+    root: ".test." + it
+  });
+});
+ldld.ctrl = new ldLoader({
+  root: ".test.ctrl",
+  ctrl: {
+    step: function(t){
+      return this.innerText = Math.round(t / 100) / 10 + "s passed.";
+    },
+    done: function(t){
+      return this.innerText = "Finished.";
+    }
+  }
+});
+ldld.all = new ldLoader({
+  root: Array.from(document.querySelectorAll(".all"))
+});
+show = function(name){
+  ldld[name].on();
+  return ldld[name].off(2000);
+};
+btnTest = document.querySelector('.btn-test');
+f = function(t){
+  var x;
+  requestAnimationFrame(f);
+  x = Math.round(Math.sin(t * 0.001) * 300);
+  return btnTest.style.left = x + "px";
+};
+requestAnimationFrame(f);</script></body></html>

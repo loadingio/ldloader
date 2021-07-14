@@ -10,4 +10,9 @@ echo "minifying ldld.js ..."
 echo "minifying ldld.css ..."
 ./node_modules/.bin/uglifycss dist/ldld.css > dist/ldld.min.css
 echo "done."
+echo "Copy dist/ to web/ ..."
+rm -rf web/static/assets/lib/ldloader/dev/
+mkdir -p web/static/assets/lib/ldloader/dev/
+cp -R dist/* web/static/assets/lib/ldloader/dev/
+echo "done."
 
