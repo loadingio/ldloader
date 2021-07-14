@@ -2,7 +2,7 @@
 rm -rf dist
 mkdir -p dist
 echo "build src/ldld.ls -> dist/ldld.js ..."
-./node_modules/.bin/lsc -cbp src/ldld.ls > dist/ldld.js
+./node_modules/.bin/lsc -cp --no-header src/ldld.ls > dist/ldld.js
 echo "build src/ldld.styl -> dist/ldld.css ..."
 ./node_modules/.bin/stylus -p src/ldld.styl > dist/ldld.css
 echo "minifying ldld.js ..."
