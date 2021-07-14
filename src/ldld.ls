@@ -1,10 +1,10 @@
 (->
-  ldLoader = (opt={}) ->
+  ldloader = (opt={}) ->
     @opt = {active-class: \running, base-z: 4000, auto-z: false, class-name: '', atomic: true} <<< opt
     <[root container]>.map (n) ~> if opt[n] =>
       @[n] = (if Array.isArray(opt[n]) => opt[n] else [opt[n]]).map ->
         ret = if typeof(it) == \string => document.querySelector(it) else it
-        if !ret => console.warn "[ldLoader] warning: no node found for #it"
+        if !ret => console.warn "[ldloader] warning: no node found for #it"
         ret
     if !@container => @container = if @root => @root.map(-> it.parentNode) else [document.body]
     if !@root => @root = @container.map ->
@@ -18,7 +18,7 @@
     @ <<< running: false, count: 0
     @
 
-  ldLoader.prototype = Object.create(Object.prototype) <<< do
+  ldloader.prototype = Object.create(Object.prototype) <<< do
     is-on: -> return @running
     on: (delay=0) -> @toggle true, delay
     off: (delay=0, force = false) -> @toggle false, delay, force
@@ -57,22 +57,23 @@
         if @opt.ctrl => @render!
         if !@opt.auto-z => return res!
         if running =>
-          if ldLoader.zmgr => @z = ldLoader.zmgr.add @opt.base-z
+          if ldloader.zmgr => @z = ldloader.zmgr.add @opt.base-z
           else
-            @z = (ldLoader.zstack[* - 1] or @opt.base-z) + 1
-            ldLoader.zstack.push z
+            @z = (ldloader.zstack[* - 1] or @opt.base-z) + 1
+            ldloader.zstack.push z
           @root.map ~> it.style.zIndex = @z
         else
-          if ldLoader.zmgr => ldLoader.zmgr.remove @z
+          if ldloader.zmgr => ldloader.zmgr.remove @z
           else
-            if (idx = ldLoader.zstack.indexOf(@z)) < 0 => return res!
-            ldLoader.zstack.splice(idx, 1)
+            if (idx = ldloader.zstack.indexOf(@z)) < 0 => return res!
+            ldloader.zstack.splice(idx, 1)
           @root.map ~> it.style.zIndex = ""
         res!
 
-  ldLoader <<< do
+  ldloader <<< do
     zstack: []
     set-zmgr: -> @zmgr = it
 
-  window.ldLoader = ldLoader
+  if module? => module.exports = ldloader
+  else window.ldloader = window.ldLoader = ldloader
 )!

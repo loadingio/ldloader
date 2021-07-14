@@ -1,6 +1,6 @@
-# ldLoader
+# ldloader
 
-handy library to manipulate loader's state. for more information, please check [ldLoader documentation](https://loading.io/lib/loader/).
+handy library to manipulate loader's state. for more information, please check [ldloader documentation](https://loading.io/lib/loader/).
 
 
 ## Usage
@@ -8,7 +8,7 @@ handy library to manipulate loader's state. for more information, please check [
 create an object for each loader you want to use:
 
 ````
-    var ldld = new ldLoader(config);
+    var ldld = new ldloader(config);
 ````
 
 
@@ -16,8 +16,8 @@ config includes following options:
 
  * root: element for your loader. default null
    - could be css selector, element, or array of css selectors/elements.
-   - ldLoader will create one automatically if omitted, and append it under container.
-   - if root is an array, ldLoader instance will work on every element in the array.
+   - ldloader will create one automatically if omitted, and append it under container.
+   - if root is an array, ldloader instance will work on every element in the array.
  * container: where root should be put in. default null.
    - will be root.parentNode if omitted.
    - will be document.body if both root and container is omitted.
@@ -28,10 +28,10 @@ config includes following options:
  * inactive-class: class added to root when loader is toggled off. default is null.
  * auto-z: update root's z-index automatically. default true.
  * base-z: the minimal z-index of root. default 10000.
-   - with auto-z, ldLoader keeps track of all loaders' z-index and always use larger z-index for newly toggled loaders. base-z is then used as a base value for all auto-z loaders.
+   - with auto-z, ldloader keeps track of all loaders' z-index and always use larger z-index for newly toggled loaders. base-z is then used as a base value for all auto-z loaders.
  * ctrl: custom animation control unit. should at least contains a member function "step(t)".
    - step(t): will be invoked repeatedly by requestAnimationFrame during loading period. context (aka this) will be root.
- * atomic: default true. when atomic is false, you will need N ldLoader.off() call to dismiss ldLoader if there was already N ldLoader.on() call.
+ * atomic: default true. when atomic is false, you will need N ldloader.off() call to dismiss ldloader if there was already N ldloader.on() call.
 
 Methods:
  * on(delay): toggle loader on. return promise. (if delay is provided, wait delay(ms) before on )
@@ -56,9 +56,9 @@ Methods:
 
 ## Styling and Structure
 
-There is no constraint about how ldLoader's DOM structure should be. Basically it contains an element for loader, and the element's parent in which the loader is shown. You control all the animation and effects based on ```active-class``` toggled by ldLoader.
+There is no constraint about how ldloader's DOM structure should be. Basically it contains an element for loader, and the element's parent in which the loader is shown. You control all the animation and effects based on ```active-class``` toggled by ldloader.
 
-For convenience, ldLoader is shipped with some builtin css for simple usage:
+For convenience, ldloader is shipped with some builtin css for simple usage:
 
  * .ldld.bare - rotating double ring, placed at where it should be.
  * .ldld.default - rotating double ring centered in it's container. container should have style position: relatve/absolute/fixed.
@@ -72,7 +72,7 @@ For convenience, ldLoader is shipped with some builtin css for simple usage:
    * .ldld.light - rgba(255,255,255,.5)
    * .ldld.dark - rgba(0,0,0,.5)
 
-You can also use ldLoader along with ```loading-btn``` and ```loading.css```:
+You can also use ldloader along with ```loading-btn``` and ```loading.css```:
 
 ```
     <div class="btn ld-ext-right">
@@ -80,7 +80,7 @@ You can also use ldLoader along with ```loading-btn``` and ```loading.css```:
       <div class="ld ld-ball ld-bounce"></div>
     </div>
     <script>
-      var ldld = new ldLoader({root: ".ld-ext-right"});
+      var ldld = new ldloader({root: ".ld-ext-right"});
       ldld.on(); ldld.off(1000);
     </script>
 ```
