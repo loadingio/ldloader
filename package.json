@@ -2,22 +2,22 @@
   "author": "zbryikt",
   "name": "ldloader",
   "license": "MIT",
+  "description": "loader manipulation library",
+  "version": "1.2.0",
   "files": [
     "dist/**/*"
   ],
-  "description": "loader manipulation library",
-  "version": "1.2.0",
   "homepage": "https://loading.io/lib/loader/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/loadingio/ldLoader"
+    "url": "https://github.com/loadingio/ldloader"
   },
   "engines": {
-    "node": ">=0.12.6",
-    "npm": ">=1.2.2"
+    "node": ">=10.14.1",
+    "npm": ">=6.4.1"
   },
   "devDependencies": {
-    "LiveScript": ">=1.2.0",
+    "livescript": "^1.6.0",
     "stylus": "^0.54.5",
     "uglify-js": "=3.2.0",
     "uglifycss": "0.0.29"
