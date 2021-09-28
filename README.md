@@ -18,9 +18,10 @@ config includes following options:
    - could be css selector, element, or array of css selectors/elements.
    - ldloader will create one automatically if omitted, and append it under container.
    - if root is an array, ldloader instance will work on every element in the array.
- * container: where root should be put in. default null.
+ * container: where root should be put in.
    - will be root.parentNode if omitted.
    - will be document.body if both root and container is omitted.
+   - note: container is also an array since root by design accept array of value.
  * class-name: additional class over root. default '' and is optional.
    - you can also add classes directly onto the root element you provided.
  * active-class: class added to root when loader is toggled on. default 'running'.
