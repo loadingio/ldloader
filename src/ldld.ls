@@ -1,15 +1,19 @@
 ldloader = (opt={}) ->
   @opt = {active-class: \running, base-z: 4000, auto-z: false, class-name: '', atomic: true} <<< opt
+  if opt.zmgr => @zmgr opt.zmgr
   <[root container]>.map (n) ~> if opt[n] =>
-    @[n] = (if Array.isArray(opt[n]) => opt[n] else [opt[n]]).map ->
+    list = if Array.isArray(opt[n]) => opt[n]
+    else if opt[n] instanceof NodeList => Array.from(opt[n])
+    else [opt[n]]
+    @[n] = list.map ->
       ret = if typeof(it) == \string => document.querySelector(it) else it
       if !ret => console.warn "[ldloader] warning: no node found for #it"
       ret
   if !@container => @container = if @root => @root.map(-> it.parentNode) else [document.body]
   if !@root => @root = @container.map ->
-      node = document.createElement("div")
-      it.appendChild node
-      return node
+    node = document.createElement("div")
+    it.appendChild node
+    return node
   @root.map ~>
     it.classList.add.apply it.classList, (@opt.class-name or '').split(' ').filter(->it)
     it.classList.remove opt.active-class
@@ -18,6 +22,7 @@ ldloader = (opt={}) ->
   @
 
 ldloader.prototype = Object.create(Object.prototype) <<< do
+  zmgr: -> if it? => @_zmgr = it else @_zmgr
   is-on: -> return @running
   on: (delay=0) -> @toggle true, delay
   off: (delay=0, force = false) -> @toggle false, delay, force
@@ -55,23 +60,21 @@ ldloader.prototype = Object.create(Object.prototype) <<< do
       @running = running = @root.0.classList.contains(@opt.active-class)
       if @opt.ctrl => @render!
       if !@opt.auto-z => return res!
+      zmgr = @_zmgr or ldloader._zmgr
       if running =>
-        if ldloader.zmgr => @z = ldloader.zmgr.add @opt.base-z
-        else
-          @z = (ldloader.zstack[* - 1] or @opt.base-z) + 1
-          ldloader.zstack.push z
+        @z = zmgr.add @opt.base-z
         @root.map ~> it.style.zIndex = @z
       else
-        if ldloader.zmgr => ldloader.zmgr.remove @z
-        else
-          if (idx = ldloader.zstack.indexOf(@z)) < 0 => return res!
-          ldloader.zstack.splice(idx, 1)
+        zmgr.remove @z
         @root.map ~> it.style.zIndex = ""
       res!
 
 ldloader <<< do
-  zstack: []
-  set-zmgr: -> @zmgr = it
+  _zmgr: do
+    add: (v) -> @[]s.push(z = Math.max(v or 0, (@s[* - 1] or 0) + 1)); return z
+    remove: (v) -> if (i = @[]s.indexOf(v)) < 0 => return else @s.splice(i,1)
+  zmgr: -> if it? => @_zmgr = it else @_zmgr
+
 
 if module? => module.exports = ldloader
 else window.ldloader = window.ldLoader = ldloader

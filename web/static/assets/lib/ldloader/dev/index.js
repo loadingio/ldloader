@@ -169,23 +169,11 @@
         zmgr = this$._zmgr || ldloader._zmgr;
         if (running) {
           this$.z = zmgr.add(this$.opt.baseZ);
-          /*
-          if zmgr => @z = zmgr.add @opt.base-z
-          else
-            @z = (ldloader.zstack[* - 1] or @opt.base-z) + 1
-            ldloader.zstack.push z
-          */
           this$.root.map(function(it){
             return it.style.zIndex = this$.z;
           });
         } else {
           zmgr.remove(this$.z);
-          /*
-          if zmgr => zmgr.remove @z
-          else
-            if (idx = ldloader.zstack.indexOf(@z)) < 0 => return res!
-            ldloader.zstack.splice(idx, 1)
-          */
           this$.root.map(function(it){
             return it.style.zIndex = "";
           });
@@ -194,11 +182,6 @@
       });
     }
   });
-  /*
-  ldloader <<< do
-    zstack: []
-    zmgr: -> if it? => @_zmgr = it else @_zmgr
-  */
   import$(ldloader, {
     _zmgr: {
       add: function(v){

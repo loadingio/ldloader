@@ -1,5 +1,14 @@
 # Change Log
 
+## v2.0.0
+
+ - fix bug: `root` or `container` params with `NodeList` value are not treated as array, which should.
+ - support `zmgr` directly in object.
+ - use zmgr fallback instead of old zstack to simplify code logic
+ - rename `ldloader` zmgr api ( from `set-zmgr` to `zmgr` )
+ - rename `ldld.js`, `ldld.css` to `index.js`, `index.css`, including minimized version.
+
+
 ## v1.2.1
 
  - deprecate `ldLoader`. use `ldloader` instead.
