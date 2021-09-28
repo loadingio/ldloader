@@ -304,13 +304,16 @@
   margin-right: 0.33em;
   display: inline;
   font-family: ldi;
-  content: "\f00e";
+  content: "\f052";
 }
 .btn.btn-radio.active:before {
-  content: "\f00f";
+  content: "\f051";
+}
+.btn.btn-radio.check:before {
+  content: "\f054";
 }
 .btn.btn-radio.check.active:before {
-  content: "\f00d";
+  content: "\f053";
 }
 .btn-group.flex {
   display: flex;
