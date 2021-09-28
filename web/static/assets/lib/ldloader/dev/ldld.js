@@ -10,11 +10,18 @@
       className: '',
       atomic: true
     }, opt);
+    if (opt.zmgr) {
+      this.zmgr(opt.zmgr);
+    }
     ['root', 'container'].map(function(n){
+      var list;
       if (opt[n]) {
-        return this$[n] = (Array.isArray(opt[n])
+        list = Array.isArray(opt[n])
           ? opt[n]
-          : [opt[n]]).map(function(it){
+          : opt[n] instanceof NodeList
+            ? Array.from(opt[n])
+            : [opt[n]];
+        return this$[n] = list.map(function(it){
           var ret;
           ret = typeof it === 'string' ? document.querySelector(it) : it;
           if (!ret) {
@@ -53,6 +60,13 @@
     return this;
   };
   ldloader.prototype = import$(Object.create(Object.prototype), {
+    zmgr: function(it){
+      if (it != null) {
+        return this._zmgr = it;
+      } else {
+        return this._zmgr;
+      }
+    },
     isOn: function(){
       return this.running;
     },
@@ -134,7 +148,7 @@
         });
       }
       return new Promise(function(res, rej){
-        var ref$, running, idx;
+        var ref$, running, zmgr;
         this$.count = (ref$ = this$.count + d) > 0 ? ref$ : 0;
         if (!force && !this$.opt.atomic && (this$.count >= 2 || (this$.count === 1 && d < 0))) {
           return res();
@@ -152,25 +166,26 @@
         if (!this$.opt.autoZ) {
           return res();
         }
+        zmgr = this$._zmgr || ldloader._zmgr;
         if (running) {
-          if (ldloader.zmgr) {
-            this$.z = ldloader.zmgr.add(this$.opt.baseZ);
-          } else {
-            this$.z = ((ref$ = ldloader.zstack)[ref$.length - 1] || this$.opt.baseZ) + 1;
-            ldloader.zstack.push(z);
-          }
+          this$.z = zmgr.add(this$.opt.baseZ);
+          /*
+          if zmgr => @z = zmgr.add @opt.base-z
+          else
+            @z = (ldloader.zstack[* - 1] or @opt.base-z) + 1
+            ldloader.zstack.push z
+          */
           this$.root.map(function(it){
             return it.style.zIndex = this$.z;
           });
         } else {
-          if (ldloader.zmgr) {
-            ldloader.zmgr.remove(this$.z);
-          } else {
-            if ((idx = ldloader.zstack.indexOf(this$.z)) < 0) {
-              return res();
-            }
-            ldloader.zstack.splice(idx, 1);
-          }
+          zmgr.remove(this$.z);
+          /*
+          if zmgr => zmgr.remove @z
+          else
+            if (idx = ldloader.zstack.indexOf(@z)) < 0 => return res!
+            ldloader.zstack.splice(idx, 1)
+          */
           this$.root.map(function(it){
             return it.style.zIndex = "";
           });
@@ -179,10 +194,31 @@
       });
     }
   });
+  /*
+  ldloader <<< do
+    zstack: []
+    zmgr: -> if it? => @_zmgr = it else @_zmgr
+  */
   import$(ldloader, {
-    zstack: [],
-    setZmgr: function(it){
-      return this.zmgr = it;
+    _zmgr: {
+      add: function(v){
+        var z, ref$;
+        (this.s || (this.s = [])).push(z = Math.max(v || 0, ((ref$ = this.s)[ref$.length - 1] || 0) + 1));
+        return z;
+      },
+      remove: function(v){
+        var i;
+        if ((i = (this.s || (this.s = [])).indexOf(v)) < 0) {} else {
+          return this.s.splice(i, 1);
+        }
+      }
+    },
+    zmgr: function(it){
+      if (it != null) {
+        return this._zmgr = it;
+      } else {
+        return this._zmgr;
+      }
     }
   });
   if (typeof module != 'undefined' && module !== null) {

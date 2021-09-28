@@ -31,7 +31,10 @@ html
       .btn.btn-outline-secondary.mr-2.all.ld-ext-right All 1 #[.ld.ld-ring.ld-spin]
       .btn.btn-outline-secondary.mr-2.all.ld-ext-left All 2 #[.ld.ld-ring.ld-spin]
       .btn.btn-outline-secondary.mr-2.all.ld-ext-top All 3 #[.ld.ld-ring.ld-spin]
+      #content
 
+    +script("/assets/lib/@loadingio/debounce.js/main/debounce.min.js")
     +script("/assets/lib/ldcover/main/ldcv.min.js")
+    +script("/assets/lib/zmgr/main/index.min.js")
     +script("/assets/lib/ldloader/dev/ldld.js")
     script: include:lsc index.ls

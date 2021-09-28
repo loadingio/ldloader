@@ -124,7 +124,7 @@ pug_mixins["css"]("/assets/lib/ldloader/dev/ldld.css");
 ;pug_debug_line = 11;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
 pug_html = pug_html + "\u003Cstyle type=\"text\u002Fcss\"\u003E";
 ;pug_debug_line = 11;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
-pug_html = pug_html + ".btn-test {\n  width: 300px;\n  height: 300px;\n  background: #ccc;\n  margin: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.btn-test:hover {\n  background: #f00;\n}\n\u003C\u002Fstyle\u003E\u003C\u002Fhead\u003E";
+pug_html = pug_html + ".btn-test {\n  width: 100px;\n  height: 100px;\n  background: #ccc;\n  margin: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.btn-test:hover {\n  background: #f00;\n}\n#content {\n  width: 100%;\n  height: 3em;\n  background: #e1e2e3;\n  margin: 0.5em 0;\n  position: relative;\n}\n#content div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  opacity: 0;\n  transition: all 0.35s linear;\n}\n#content div.running {\n  opacity: 1;\n}\n.ldld-1 {\n  width: 100%;\n  background: #f00;\n}\n.ldld-2 {\n  width: 80%;\n  background: #f90;\n}\n.ldld-3 {\n  width: 60%;\n  background: #ff0;\n}\n.ldld-4 {\n  width: 40%;\n  background: #9f0;\n}\n\u003C\u002Fstyle\u003E\u003C\u002Fhead\u003E";
 ;pug_debug_line = 12;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
 pug_html = pug_html + "\u003Cbody\u003E";
 ;pug_debug_line = 13;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
@@ -202,15 +202,21 @@ pug_html = pug_html + "All 3 ";
 ;pug_debug_line = 33;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
 pug_html = pug_html + "\u003Cdiv class=\"ld ld-ring ld-spin\"\u003E\u003C\u002Fdiv\u003E";
 ;pug_debug_line = 33;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
-pug_html = pug_html + "\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
-;pug_debug_line = 35;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
-pug_mixins["script"]("/assets/lib/ldcover/main/ldcv.min.js");
+pug_html = pug_html + "\u003C\u002Fdiv\u003E";
+;pug_debug_line = 34;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
+pug_html = pug_html + "\u003Cdiv id=\"content\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
 ;pug_debug_line = 36;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
+pug_mixins["script"]("/assets/lib/@loadingio/debounce.js/main/debounce.min.js");
+;pug_debug_line = 37;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
+pug_mixins["script"]("/assets/lib/ldcover/main/ldcv.min.js");
+;pug_debug_line = 38;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
+pug_mixins["script"]("/assets/lib/zmgr/main/index.min.js");
+;pug_debug_line = 39;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
 pug_mixins["script"]("/assets/lib/ldloader/dev/ldld.js");
-;pug_debug_line = 37;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
+;pug_debug_line = 40;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
 pug_html = pug_html + "\u003Cscript\u003E";
-;pug_debug_line = 37;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
-pug_html = pug_html + "var ldld, show, btnTest, f;\nldld = {};\n['full', 'default', 'btn'].map(function(it){\n  return ldld[it] = new ldLoader({\n    root: \".test.\" + it\n  });\n});\nldld.ctrl = new ldLoader({\n  root: \".test.ctrl\",\n  ctrl: {\n    step: function(t){\n      return this.innerText = Math.round(t \u002F 100) \u002F 10 + \"s passed.\";\n    },\n    done: function(t){\n      return this.innerText = \"Finished.\";\n    }\n  }\n});\nldld.all = new ldLoader({\n  root: Array.from(document.querySelectorAll(\".all\"))\n});\nshow = function(name){\n  ldld[name].on();\n  return ldld[name].off(2000);\n};\nbtnTest = document.querySelector('.btn-test');\nf = function(t){\n  var x;\n  requestAnimationFrame(f);\n  x = Math.round(Math.sin(t * 0.001) * 300);\n  return btnTest.style.left = x + \"px\";\n};\nrequestAnimationFrame(f);\u003C\u002Fscript\u003E\u003C\u002Fbody\u003E\u003C\u002Fhtml\u003E";
+;pug_debug_line = 40;pug_debug_filename = "src\u002Fpug\u002Findex.pug";
+pug_html = pug_html + "var ldld, show, btnTest, f, zmgr, content, ldldZ;\nldld = {};\n['full', 'default', 'btn'].map(function(it){\n  return ldld[it] = new ldloader({\n    root: \".test.\" + it\n  });\n});\nldld.ctrl = new ldloader({\n  root: \".test.ctrl\",\n  ctrl: {\n    step: function(t){\n      return this.innerText = Math.round(t \u002F 100) \u002F 10 + \"s passed.\";\n    },\n    done: function(t){\n      return this.innerText = \"Finished.\";\n    }\n  }\n});\nldld.all = new ldLoader({\n  root: Array.from(document.querySelectorAll(\".all\"))\n});\nshow = function(name){\n  ldld[name].on();\n  return ldld[name].off(2000);\n};\nbtnTest = document.querySelector('.btn-test');\nf = function(t){\n  var x;\n  requestAnimationFrame(f);\n  x = Math.round(Math.sin(t * 0.001) * 300);\n  return btnTest.style.left = x + \"px\";\n};\nrequestAnimationFrame(f);\nzmgr = new zmgr();\ncontent = document.querySelectorAll('#content');\nldldZ = [\n  new ldloader({\n    container: content,\n    className: 'ldld ldld-4',\n    zmgr: zmgr,\n    autoZ: true\n  }), new ldloader({\n    container: content,\n    className: 'ldld ldld-3',\n    zmgr: zmgr,\n    autoZ: true\n  }), new ldloader({\n    container: content,\n    className: 'ldld ldld-2',\n    zmgr: zmgr,\n    autoZ: true\n  }), new ldloader({\n    container: content,\n    className: 'ldld ldld-1',\n    zmgr: zmgr,\n    autoZ: true\n  })\n];\ndebounce(1000).then(function(){\n  return ldldZ[3].on().then(function(){\n    return debounce(1000);\n  });\n}).then(function(){\n  return ldldZ[2].on().then(function(){\n    return debounce(1000);\n  });\n}).then(function(){\n  return ldldZ[1].on().then(function(){\n    return debounce(1000);\n  });\n}).then(function(){\n  return ldldZ[0].on().then(function(){\n    return debounce(1000);\n  });\n}).then(function(){\n  return ldldZ[3].off().then(function(){\n    return debounce(1000);\n  });\n}).then(function(){\n  return ldldZ[2].off().then(function(){\n    return debounce(1000);\n  });\n}).then(function(){\n  return ldldZ[1].off().then(function(){\n    return debounce(1000);\n  });\n}).then(function(){\n  return ldldZ[0].off().then(function(){\n    return debounce(1000);\n  });\n});\u003C\u002Fscript\u003E\u003C\u002Fbody\u003E\u003C\u002Fhtml\u003E";
     }.call(this, "JSON" in locals_for_with ?
         locals_for_with.JSON :
         typeof JSON !== 'undefined' ? JSON : undefined, "b64img" in locals_for_with ?

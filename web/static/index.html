@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/main/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.css"><link rel="stylesheet" type="text/css" href="/assets/lib/ldcover/main/ldcv.min.css"><link rel="stylesheet" type="text/css" href="/assets/lib/ldbutton/main/ldbtn.css"><link rel="stylesheet" type="text/css" href="/assets/lib/@loadingio/loading.css/main/loading.css"><link rel="stylesheet" type="text/css" href="/assets/lib/ldloader/dev/ldld.css"><style type="text/css">.btn-test {
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   background: #ccc;
   margin: auto;
   position: absolute;
@@ -12,14 +12,48 @@
 .btn-test:hover {
   background: #f00;
 }
-</style></head><body><div class="test ldld full z-fixed"></div><div class="w-1024 mx-auto my-4 rwd"><h2>ldLoader Demonstration</h2><div class="btn btn-outline-secondary mr-2" onclick="show('full')">toggle full</div><div class="btn btn-outline-secondary mr-2" onclick="show('default')">toggle Floating Panel</div><div class="btn btn-outline-secondary mr-2" onclick="show('btn')">toggle btn</div><div class="btn btn-outline-secondary mr-2" onclick="show('ctrl')">toggle ctrl</div><div class="btn btn-outline-secondary mr-2" onclick="show('all')">toggle multiple</div><hr><div class="test btn btn-outline-secondary ld-ext-right mr-2"><span>Load</span><div class="ld ld-ball ld-bounce"></div></div><div class="btn btn-outline-secondary mr-2"><div class="d-flex align-items-center"><span>Ctrl</span><div class="test ctrl ml-2"></div></div></div><div class="btn btn-test"><div class="test ldld default"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-right">All 1 <div class="ld ld-ring ld-spin"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-left">All 2 <div class="ld ld-ring ld-spin"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-top">All 3 <div class="ld ld-ring ld-spin"></div></div></div><script type="text/javascript" src="/assets/lib/ldcover/main/ldcv.min.js"></script><script type="text/javascript" src="/assets/lib/ldloader/dev/ldld.js"></script><script>var ldld, show, btnTest, f;
+#content {
+  width: 100%;
+  height: 3em;
+  background: #e1e2e3;
+  margin: 0.5em 0;
+  position: relative;
+}
+#content div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.35s linear;
+}
+#content div.running {
+  opacity: 1;
+}
+.ldld-1 {
+  width: 100%;
+  background: #f00;
+}
+.ldld-2 {
+  width: 80%;
+  background: #f90;
+}
+.ldld-3 {
+  width: 60%;
+  background: #ff0;
+}
+.ldld-4 {
+  width: 40%;
+  background: #9f0;
+}
+</style></head><body><div class="test ldld full z-fixed"></div><div class="w-1024 mx-auto my-4 rwd"><h2>ldLoader Demonstration</h2><div class="btn btn-outline-secondary mr-2" onclick="show('full')">toggle full</div><div class="btn btn-outline-secondary mr-2" onclick="show('default')">toggle Floating Panel</div><div class="btn btn-outline-secondary mr-2" onclick="show('btn')">toggle btn</div><div class="btn btn-outline-secondary mr-2" onclick="show('ctrl')">toggle ctrl</div><div class="btn btn-outline-secondary mr-2" onclick="show('all')">toggle multiple</div><hr><div class="test btn btn-outline-secondary ld-ext-right mr-2"><span>Load</span><div class="ld ld-ball ld-bounce"></div></div><div class="btn btn-outline-secondary mr-2"><div class="d-flex align-items-center"><span>Ctrl</span><div class="test ctrl ml-2"></div></div></div><div class="btn btn-test"><div class="test ldld default"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-right">All 1 <div class="ld ld-ring ld-spin"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-left">All 2 <div class="ld ld-ring ld-spin"></div></div><div class="btn btn-outline-secondary mr-2 all ld-ext-top">All 3 <div class="ld ld-ring ld-spin"></div></div><div id="content"></div></div><script type="text/javascript" src="/assets/lib/@loadingio/debounce.js/main/debounce.min.js"></script><script type="text/javascript" src="/assets/lib/ldcover/main/ldcv.min.js"></script><script type="text/javascript" src="/assets/lib/zmgr/main/index.min.js"></script><script type="text/javascript" src="/assets/lib/ldloader/dev/ldld.js"></script><script>var ldld, show, btnTest, f, zmgr, content, ldldZ;
 ldld = {};
 ['full', 'default', 'btn'].map(function(it){
-  return ldld[it] = new ldLoader({
+  return ldld[it] = new ldloader({
     root: ".test." + it
   });
 });
-ldld.ctrl = new ldLoader({
+ldld.ctrl = new ldloader({
   root: ".test.ctrl",
   ctrl: {
     step: function(t){
@@ -44,4 +78,62 @@ f = function(t){
   x = Math.round(Math.sin(t * 0.001) * 300);
   return btnTest.style.left = x + "px";
 };
-requestAnimationFrame(f);</script></body></html>
+requestAnimationFrame(f);
+zmgr = new zmgr();
+content = document.querySelectorAll('#content');
+ldldZ = [
+  new ldloader({
+    container: content,
+    className: 'ldld ldld-4',
+    zmgr: zmgr,
+    autoZ: true
+  }), new ldloader({
+    container: content,
+    className: 'ldld ldld-3',
+    zmgr: zmgr,
+    autoZ: true
+  }), new ldloader({
+    container: content,
+    className: 'ldld ldld-2',
+    zmgr: zmgr,
+    autoZ: true
+  }), new ldloader({
+    container: content,
+    className: 'ldld ldld-1',
+    zmgr: zmgr,
+    autoZ: true
+  })
+];
+debounce(1000).then(function(){
+  return ldldZ[3].on().then(function(){
+    return debounce(1000);
+  });
+}).then(function(){
+  return ldldZ[2].on().then(function(){
+    return debounce(1000);
+  });
+}).then(function(){
+  return ldldZ[1].on().then(function(){
+    return debounce(1000);
+  });
+}).then(function(){
+  return ldldZ[0].on().then(function(){
+    return debounce(1000);
+  });
+}).then(function(){
+  return ldldZ[3].off().then(function(){
+    return debounce(1000);
+  });
+}).then(function(){
+  return ldldZ[2].off().then(function(){
+    return debounce(1000);
+  });
+}).then(function(){
+  return ldldZ[1].off().then(function(){
+    return debounce(1000);
+  });
+}).then(function(){
+  return ldldZ[0].off().then(function(){
+    return debounce(1000);
+  });
+});</script></body></html>
