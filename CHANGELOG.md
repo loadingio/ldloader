@@ -1,5 +1,10 @@
 # Change Log
 
+## v2.0.1
+
+ - remove deprecated `ldLoader`
+
+
 ## v2.0.0
 
  - fix bug: `root` or `container` params with `NodeList` value are not treated as array, which should.

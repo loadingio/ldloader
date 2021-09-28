@@ -207,7 +207,7 @@
   if (typeof module != 'undefined' && module !== null) {
     module.exports = ldloader;
   } else {
-    window.ldloader = window.ldLoader = ldloader;
+    window.ldloader = ldloader;
   }
   function import$(obj, src){
     var own = {}.hasOwnProperty;
