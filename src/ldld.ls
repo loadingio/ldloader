@@ -1,5 +1,6 @@
 ldloader = (opt={}) ->
   @opt = {active-class: \running, base-z: 4000, auto-z: false, class-name: '', atomic: true} <<< opt
+  @_toggler = if typeof(opt.toggler) == \function => opt.toggler else (->)
   if opt.zmgr => @zmgr opt.zmgr
   <[root container]>.map (n) ~> if opt[n] =>
     list = if Array.isArray(opt[n]) => opt[n]
@@ -51,7 +52,7 @@ ldloader.prototype = Object.create(Object.prototype) <<< do
       #if d > 0 => @toggle(v)then ~> setTimeout (~> res!), delay
       # if is off: off after resolve
       #else => setTimeout (~> @toggle(v)then ~> res!), delay
-    new Promise (res, rej) ~>
+    ret = new Promise (res, rej) ~>
       @count = (@count + d >? 0)
       if !force and !@opt.atomic and ( @count >= 2 or (@count == 1 and d < 0)) => return res!
       @root.map ~>
@@ -68,6 +69,7 @@ ldloader.prototype = Object.create(Object.prototype) <<< do
         zmgr.remove @z
         @root.map ~> it.style.zIndex = ""
       res!
+    ret.then ~> @_toggler(if d > 0 => true else false)
 
 ldloader <<< do
   _zmgr: do

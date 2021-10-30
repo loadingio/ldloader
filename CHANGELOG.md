@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.1.0
+
+ - add `toggler` function
+   - useful if we want to chain toggling to other object such as ldcover.
+
+
 ## v2.0.1
 
  - remove deprecated `ldLoader`

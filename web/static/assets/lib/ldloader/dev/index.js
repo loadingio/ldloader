@@ -10,6 +10,9 @@
       className: '',
       atomic: true
     }, opt);
+    this._toggler = typeof opt.toggler === 'function'
+      ? opt.toggler
+      : function(){};
     if (opt.zmgr) {
       this.zmgr(opt.zmgr);
     }
@@ -127,7 +130,7 @@
       });
     },
     toggle: function(v, delay, force){
-      var d, this$ = this;
+      var d, ret, this$ = this;
       delay == null && (delay = 0);
       force == null && (force = false);
       d = !(v != null)
@@ -147,7 +150,7 @@
           }, delay);
         });
       }
-      return new Promise(function(res, rej){
+      ret = new Promise(function(res, rej){
         var ref$, running, zmgr;
         this$.count = (ref$ = this$.count + d) > 0 ? ref$ : 0;
         if (!force && !this$.opt.atomic && (this$.count >= 2 || (this$.count === 1 && d < 0))) {
@@ -179,6 +182,9 @@
           });
         }
         return res();
+      });
+      return ret.then(function(){
+        return this$._toggler(d > 0 ? true : false);
       });
     }
   });

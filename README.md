@@ -33,8 +33,11 @@ config includes following options:
  * ctrl: custom animation control unit. should at least contains a member function "step(t)".
    - step(t): will be invoked repeatedly by requestAnimationFrame during loading period. context (aka this) will be root.
  * atomic: default true. when atomic is false, you will need N ldloader.off() call to dismiss ldloader if there was already N ldloader.on() call.
+ * toggler(v): optional toggler triggered when `on/off` status changed. useful for chaining toggling events.
+   - `v`: on/off status.
 
 Methods:
+
  * on(delay): toggle loader on. return promise. (if delay is provided, wait delay(ms) before on )
  * off(delay): toggle loader off. (if delay is provided, wait delay(ms) before off )
  * cancel(v): cancel delayed action. force state to `v` if v is defined.

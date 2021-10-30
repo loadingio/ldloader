@@ -3,7 +3,7 @@
   "name": "ldloader",
   "license": "MIT",
   "description": "loader manipulation library",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "files": [
     "dist/**/*"
   ],
