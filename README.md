@@ -7,9 +7,7 @@ handy library to manipulate loader's state. for more information, please check [
 
 create an object for each loader you want to use:
 
-````
     var ldld = new ldloader(config);
-````
 
 
 config includes following options:
@@ -60,7 +58,7 @@ Methods:
 
 ## Styling and Structure
 
-There is no constraint about how ldloader's DOM structure should be. Basically it contains an element for loader, and the element's parent in which the loader is shown. You control all the animation and effects based on ```active-class``` toggled by ldloader.
+There is no constraint about how ldloader's DOM structure should be. Basically it contains an element for loader, and the element's parent in which the loader is shown. You control all the animation and effects based on `active-class` toggled by ldloader.
 
 For convenience, ldloader is shipped with some builtin css for simple usage:
 
@@ -76,9 +74,8 @@ For convenience, ldloader is shipped with some builtin css for simple usage:
    * .ldld.light - rgba(255,255,255,.5)
    * .ldld.dark - rgba(0,0,0,.5)
 
-You can also use ldloader along with ```loading-btn``` and ```loading.css```:
+You can also use ldloader along with `loading-btn` and `loading.css`:
 
-```
     <div class="btn ld-ext-right">
       Load
       <div class="ld ld-ball ld-bounce"></div>
@@ -87,7 +84,6 @@ You can also use ldloader along with ```loading-btn``` and ```loading.css```:
       var ldld = new ldloader({root: ".ld-ext-right"});
       ldld.on(); ldld.off(1000);
     </script>
-```
  
 
 ## License
