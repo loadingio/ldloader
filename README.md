@@ -25,7 +25,7 @@ config includes following options:
  * active-class: class added to root when loader is toggled on. default 'running'.
    - useful when working with different css libraries.
  * inactive-class: class added to root when loader is toggled off. default is null.
- * auto-z: update root's z-index automatically. default true.
+ * auto-z: update root's z-index automatically. default false.
  * base-z: the minimal z-index of root. default 10000.
    - with auto-z, ldloader keeps track of all loaders' z-index and always use larger z-index for newly toggled loaders. base-z is then used as a base value for all auto-z loaders.
  * ctrl: custom animation control unit. should at least contains a member function "step(t)".
