@@ -79,4 +79,4 @@ ldloader <<< do
 
 
 if module? => module.exports = ldloader
-else window.ldloader = ldloader
+else if window? => window.ldloader = ldloader

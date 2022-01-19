@@ -6,7 +6,7 @@ echo "build src/ldld.ls -> dist/index.js ..."
 echo "build src/ldld.styl -> dist/index.css ..."
 ./node_modules/.bin/stylus -p src/ldld.styl > dist/index.css
 echo "minifying index.js ..."
-./node_modules/.bin/uglifyjs dist/index.js > dist/index.min.js
+./node_modules/.bin/uglifyjs dist/index.js -m -c > dist/index.min.js
 echo "minifying index.css ..."
 ./node_modules/.bin/uglifycss dist/index.css > dist/index.min.css
 echo "done."

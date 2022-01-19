@@ -212,7 +212,7 @@
   });
   if (typeof module != 'undefined' && module !== null) {
     module.exports = ldloader;
-  } else {
+  } else if (typeof window != 'undefined' && window !== null) {
     window.ldloader = ldloader;
   }
   function import$(obj, src){

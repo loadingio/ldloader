@@ -1,5 +1,17 @@
 # Change Log
 
+## v3.0.0
+
+ - upgrade modules
+ - release with compact directory structure
+ - add `style` in `package.json`
+ - add `main` and `browser` field in `package.json`.
+ - further minimize generated js file with mangling and compression
+ - remove assets files from git
+ - patch test code to make it work with upgraded modules
+ - update window only if window is defined
+
+
 ## v2.1.0
 
  - add `toggler` function

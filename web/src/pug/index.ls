@@ -5,9 +5,9 @@ ldld.ctrl = new ldloader root: ".test.ctrl", ctrl: do
   step: (t) -> @innerText = "#{Math.round(t/100)/10}s passed."
   done: (t) -> @innerText = "Finished."
 
-ldld.all = new ldLoader root: Array.from(document.querySelectorAll(".all"))
+ldld.all = new ldloader root: Array.from(document.querySelectorAll(".all"))
 
-show = (name) -> ldld[name]on!; ldld[name]off 2000
+window.show = (name) -> ldld[name]on!; ldld[name]off 2000
 
 btn-test = document.querySelector '.btn-test'
 f = (t) ->
@@ -17,13 +17,13 @@ f = (t) ->
 
 requestAnimationFrame f
 
-zmgr = new zmgr!
+zm = new zmgr!
 content = document.querySelectorAll(\#content)
 ldld-z = [
-  new ldloader container: content, class-name: 'ldld ldld-4', zmgr: zmgr, auto-z: true
-  new ldloader container: content, class-name: 'ldld ldld-3', zmgr: zmgr, auto-z: true
-  new ldloader container: content, class-name: 'ldld ldld-2', zmgr: zmgr, auto-z: true
-  new ldloader container: content, class-name: 'ldld ldld-1', zmgr: zmgr, auto-z: true
+  new ldloader container: content, class-name: 'ldld ldld-4', zmgr: zm, auto-z: true
+  new ldloader container: content, class-name: 'ldld ldld-3', zmgr: zm, auto-z: true
+  new ldloader container: content, class-name: 'ldld ldld-2', zmgr: zm, auto-z: true
+  new ldloader container: content, class-name: 'ldld ldld-1', zmgr: zm, auto-z: true
 ]
 debounce 1000
   .then -> ldld-z.3.on!  .then -> debounce 1000

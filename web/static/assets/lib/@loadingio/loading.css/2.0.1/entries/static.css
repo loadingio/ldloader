@@ -1,5 +1,0 @@
-.ld { transform-origin: 50% 50%; transform-box: fill-box; }
- @keyframes ld-static { 0% { } 100% { } } 
-.ld.ld-static {
-  animation: ld-static 1s infinite linear; ; 
-}
