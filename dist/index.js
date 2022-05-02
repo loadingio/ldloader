@@ -177,9 +177,6 @@
           });
         } else {
           zmgr.remove(this$.z);
-          this$.root.map(function(it){
-            return it.style.zIndex = "";
-          });
         }
         return res();
       });

@@ -67,7 +67,6 @@ ldloader.prototype = Object.create(Object.prototype) <<< do
         @root.map ~> it.style.zIndex = @z
       else
         zmgr.remove @z
-        @root.map ~> it.style.zIndex = ""
       res!
     ret.then ~> @_toggler(if d > 0 => true else false)
 
