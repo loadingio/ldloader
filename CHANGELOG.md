@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.0.2 (upcoming)
+
+ - upgrade modules to fix vulnerabilities
+
+
 ## v3.0.1
 
  - dont reset zIndex to preserve fade effect ( if any )
