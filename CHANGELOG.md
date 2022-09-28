@@ -1,6 +1,6 @@
 # Change Log
 
-## v3.0.2 (upcoming)
+## v3.0.2
 
  - upgrade modules to fix vulnerabilities
 
