@@ -19,6 +19,7 @@
     display: block
     background: none
     animation: ldld-default 0.5s ease-in-out infinite
+    animation-play-state: paused
     border-radius: 50%
     width: 100%
     height: 100%
@@ -26,7 +27,9 @@
     box-sizing: border-box
     border: 2px solid #fff
     border-color: currentColor transparent currentColor transparent
-
+.ldld.default, .ldld.full, .ldld.ldbtn, .ldld.bare
+  &.running:before
+    animation-play-state: running
 
 @keyframes ldld-default
   0%

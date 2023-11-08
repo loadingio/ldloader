@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.0.3 (upcoming)
+
+ - pause animation when it's not running
+
+
 ## v3.0.2
 
  - upgrade modules to fix vulnerabilities

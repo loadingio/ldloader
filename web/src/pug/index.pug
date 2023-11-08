@@ -2,12 +2,14 @@ doctype html
 include @/@loadingio/bootstrap.ext/index.pug
 html
   head
-    +css("assets/lib/bootstrap/main/dist/css/bootstrap.min.css")
-    +css("assets/lib/@loadingio/bootstrap.ext/main/index.min.css")
-    +css("/assets/lib/ldcover/main/index.min.css")
-    +css("/assets/lib/ldbutton/main/dist/ldbtn.css")
-    +css("/assets/lib/@loadingio/loading.css/main/loading.css")
-    +css("/assets/lib/ldloader/dev/index.css")
+    +css([
+      {name: "bootstrap", path: "dist/css/bootstrap.min.css"},
+      {name: "@loadingio/bootstrap.ext"},
+      {name: "ldcover"},
+      {name: "ldbutton"},
+      {name: "@loadingio/loading.css", path: "loading.css"},
+      {name: "ldloader", version: "dev"}
+    ])
     style(type="text/css"): include:stylus index.styl
   body
     .test.ldld.full.z-fixed
@@ -32,9 +34,10 @@ html
       .btn.btn-outline-secondary.mr-2.all.ld-ext-left All 2 #[.ld.ld-ring.ld-spin]
       .btn.btn-outline-secondary.mr-2.all.ld-ext-top All 3 #[.ld.ld-ring.ld-spin]
       #content
-
-    +script("/assets/lib/zmgr/main/index.min.js")
-    +script("/assets/lib/@loadingio/debounce.js/main/index.min.js")
-    +script("/assets/lib/ldcover/main/index.min.js")
-    +script("/assets/lib/ldloader/dev/index.js")
+    +script([
+      {name: "zmgr"},
+      {name: "@loadingio/debounce.js"},
+      {name: "ldcover"},
+      {name: "ldloader", version: "dev", path: "index.js"}
+    ])
     script(type="module"): include:lsc index.ls
