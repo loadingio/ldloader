@@ -24,19 +24,19 @@
   },
   "devDependencies": {
     "@loadingio/debounce.js": "^1.0.1",
-    "@loadingio/ldquery": "^3.0.1",
-    "@loadingio/loading.css": "^3.0.0",
+    "@loadingio/ldquery": "^3.0.5",
+    "@loadingio/loading.css": "^3.2.0",
     "bootstrap": "^4.5.3",
-    "@loadingio/bootstrap.ext": "^0.0.4",
-    "fedep": "^1.1.0",
-    "ldbutton": "^1.0.2",
-    "ldcover": "^3.0.1",
+    "@loadingio/bootstrap.ext": "^0.0.11",
+    "fedep": "^1.1.11",
+    "ldbutton": "^2.0.1",
+    "ldcover": "^3.5.3",
     "livescript": "^1.6.0",
     "stylus": "^0.55.0",
-    "@zbryikt/template": "^2.3.33",
+    "@zbryikt/template": "^2.3.45",
     "uglify-js": "^3.13.1",
     "uglifycss": "^0.0.29",
-    "zmgr": "^2.0.0"
+    "zmgr": "^2.2.3"
   },
   "frontendDependencies": {
     "root": "web/static/assets/lib",
