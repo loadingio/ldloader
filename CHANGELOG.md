@@ -1,6 +1,6 @@
 # Change Log
 
-## v3.0.3 (upcoming)
+## v3.0.3
 
  - pause animation when it's not running
 

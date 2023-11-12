@@ -3,7 +3,7 @@
   "name": "ldloader",
   "license": "MIT",
   "description": "loader manipulation library",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "style": "dist/index.min.css",
   "browser": "dist/index.min.js",
   "main": "dist/index.min.js",
