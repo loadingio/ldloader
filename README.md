@@ -25,9 +25,11 @@ config includes following options:
  * active-class: class added to root when loader is toggled on. default 'running'.
    - useful when working with different css libraries.
  * inactive-class: class added to root when loader is toggled off. default is null.
- * auto-z: update root's z-index automatically. default false.
- * base-z: the minimal z-index of root. default 10000.
-   - with auto-z, ldloader keeps track of all loaders' z-index and always use larger z-index for newly toggled loaders. base-z is then used as a base value for all auto-z loaders.
+ * autoZ: update root's z-index automatically. default false.
+ * baseZ: the minimal z-index of root. default 4000.
+   - with autoZ, ldloader keeps track of all loaders' z-index and always use larger z-index for newly toggled loaders.
+     baseZ is then used as a base value for all autoZ loaders.
+   - for using scoped zmgr, set `baseZ` to undefined to instruct zmgr to use scoped z value.
  * ctrl: custom animation control unit. should at least contains a member function "step(t)".
    - step(t): will be invoked repeatedly by requestAnimationFrame during loading period. context (aka this) will be root.
  * atomic: default true. when atomic is false, you will need N ldloader.off() call to dismiss ldloader if there was already N ldloader.on() call.
